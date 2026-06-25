@@ -50,11 +50,20 @@ export default function Header({ activePage, onNavigate }: HeaderProps) {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
+  // CHỈ SỬA ĐỔI TẠI ĐÂY: Logic kiểm tra trang chủ và xử lý sự kiện cuộn
   useEffect(() => {
+    if (activePage !== 'home') {
+      setIsScrolled(true); // Nếu không phải trang chủ, luôn mặc định là đã scroll
+      return;
+    }
+
+    // Nếu là trang chủ, tính toán theo vị trí cuộn
     const fn = () => setIsScrolled(window.scrollY > 20);
+    fn(); // Chạy kiểm tra ngay khi vừa chuyển về trang chủ
+    
     window.addEventListener('scroll', fn);
     return () => window.removeEventListener('scroll', fn);
-  }, []);
+  }, [activePage]); // Thêm activePage để chạy lại khi chuyển trang
 
   const handleNav = (href: string) => {
     const page = pageMap[href] || 'home';
