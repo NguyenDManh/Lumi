@@ -10,13 +10,42 @@ import ContactPage from './pages/ContactPage';
 
 type Page = 'home' | 'about' | 'products' | 'catalogue' | 'news' | 'contact';
 
+// Bổ sung bảng map ngược từ URL sang Page tương ứng (giống bên Header) để check khi F5
+const pageMap: Record<string, Page> = {
+  '/': 'home', 
+  '/gioi-thieu': 'about', 
+  '/gioi-thieu/ho-so-nang-luc': 'about',
+  '/gioi-thieu/bao-chi-noi-ve-lumi': 'about', 
+  '/san-pham': 'products', 
+  '/san-pham/cua-go-chong-chay': 'products',
+  '/san-pham/cua-go-cong-nghiep': 'products', 
+  '/catalogue': 'catalogue',
+  '/chia-se-kien-thuc': 'news', 
+  '/lien-he': 'contact',
+};
+
 function App() {
-  const [activePage, setActivePage] = useState<Page>('home');
+  // SỬA TẠI ĐÂY: Thay vì viết cứng 'home', ta đọc từ pathname hiện tại của trình duyệt
+  const [activePage, setActivePage] = useState<Page>(() => {
+    const currentPath = window.location.pathname;
+    return pageMap[currentPath] || 'home';
+  });
 
   const handleNavigate = (page: string) => {
     setActivePage(page as Page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // SỬA TẠI ĐÂY: Lắng nghe sự kiện URL thay đổi (khi bấm nút Back/Forward của trình duyệt hoặc khi Header phát popstate)
+  useEffect(() => {
+    const handleUrlChange = () => {
+      const currentPath = window.location.pathname;
+      setActivePage(pageMap[currentPath] || 'home');
+    };
+
+    window.addEventListener('popstate', handleUrlChange);
+    return () => window.removeEventListener('popstate', handleUrlChange);
+  }, []);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -47,7 +76,9 @@ function App() {
       <div className="flex-1">
         {renderPage()}
       </div>
-      <Footer onNavigate={handleNavigate} />
+      <div className="bg-espresso-900 text-white">
+        <Footer onNavigate={handleNavigate} />
+      </div>
     </div>
   );
 }
