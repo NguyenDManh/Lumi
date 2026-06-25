@@ -15,7 +15,7 @@ export default function NewsPage({ onNavigate }: NewsPageProps) {
       <section className="bg-charcoal-900 text-white py-14">
         <div className="container-main">
           <span className="text-gold-400 font-semibold text-xs uppercase tracking-widest">Kiến thức</span>
-          <h1 className="text-4xl md:text-5xl font-bold mt-3 mb-4">Chia Sẻ Kiến Thức</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mt-3 mb-4 text-white">Chia Sẻ Kiến Thức</h1>
           <p className="text-ivory-300 text-lg max-w-2xl leading-relaxed">
             Cập nhật kiến thức về cửa chống cháy, tiêu chuẩn PCCC và giải pháp an toàn cho công trình xây dựng.
           </p>

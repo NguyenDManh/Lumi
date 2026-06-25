@@ -26,7 +26,7 @@ export default function ContactPage() {
       <section className="bg-charcoal-900 text-white py-14">
         <div className="container-main">
           <span className="text-gold-400 font-semibold text-xs uppercase tracking-widest">Liên hệ</span>
-          <h1 className="text-4xl md:text-5xl font-bold mt-3 mb-4">Liên Hệ Với Lumi</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mt-3 mb-4 text-white">Liên Hệ Với Lumi</h1>
           <p className="text-ivory-300 text-lg max-w-2xl leading-relaxed">
             Đội ngũ kỹ thuật và kinh doanh Lumi sẵn sàng tư vấn, báo giá và hỗ trợ mọi yêu cầu dự án của bạn.
           </p>

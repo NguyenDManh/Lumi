@@ -16,7 +16,7 @@ export default function CataloguePage({ onNavigate }: CataloguePageProps) {
       <section className="bg-charcoal-900 text-white py-14">
         <div className="container-main">
           <span className="text-gold-400 font-semibold text-xs uppercase tracking-widest">Tài liệu</span>
-          <h1 className="text-4xl md:text-5xl font-bold mt-3 mb-4">Catalogue & Tài Liệu</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mt-3 mb-4 text-white">Catalogue & Tài Liệu</h1>
           <p className="text-ivory-300 text-lg max-w-2xl leading-relaxed">
             Tải xuống catalogue sản phẩm, hồ sơ năng lực và bảng màu bề mặt để có đầy đủ thông tin phục vụ dự án.
           </p>

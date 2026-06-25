@@ -31,7 +31,7 @@ export default function ProductsPage({ onNavigate }: ProductsPageProps) {
       <section className="bg-charcoal-900 text-white py-14">
         <div className="container-main">
           <span className="text-gold-400 font-semibold text-xs uppercase tracking-widest">Sản phẩm</span>
-          <h1 className="text-4xl md:text-5xl font-bold mt-3 mb-4 leading-tight">Cửa Gỗ Chống Cháy Cao Cấp</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mt-3 mb-4 leading-tight text-white">Cửa Gỗ Chống Cháy Cao Cấp</h1>
           <p className="text-ivory-300 text-lg max-w-2xl leading-relaxed">
             Dòng cửa gỗ chống cháy EI60 Lumi – thẩm mỹ nội thất hoàn hảo kết hợp an toàn PCCC tuyệt đối, đạt tiêu chuẩn TCVN 9383:2012.
           </p>
