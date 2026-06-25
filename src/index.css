@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    background-color: #fafaf9;
+    color: #26292C;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #26292C;
+  }
+  p { line-height: 1.6; }
+}
+
+@layer components {
+  /* Primary action – Champagne Gold */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-600 text-white font-semibold px-6 py-3 rounded-sm transition-all duration-200 hover:shadow-lg;
+  }
+  /* Outlined variant */
+  .btn-outline {
+    @apply inline-flex items-center gap-2 border-2 border-gold-500 text-gold-600 hover:bg-gold-500 hover:text-white font-semibold px-6 py-3 rounded-sm transition-all duration-200;
+  }
+  /* Ghost on dark backgrounds */
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 border-2 border-white text-white hover:bg-white hover:text-charcoal-900 font-semibold px-6 py-3 rounded-sm transition-all duration-200;
+  }
+
+  .section-title   { @apply text-3xl md:text-4xl font-bold text-charcoal-900; }
+  .section-subtitle { @apply text-lg text-charcoal-600 mt-3 leading-relaxed; }
+  .card-hover      { @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1; }
+  .container-main  { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: #f5f4f2; }
+::-webkit-scrollbar-thumb { background: #B59060; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #9a7549; }
+
+/* Gold gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #614633, #B59060);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
