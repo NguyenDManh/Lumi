@@ -42,7 +42,7 @@ const pageMap: Record<string, string> = {
 
 interface HeaderProps {
   activePage: string;
-  onNavigate: (page: string) => void;
+  onNavigate: (page: string, path?: string) => void;
 }
 
 export default function Header({ activePage, onNavigate }: HeaderProps) {
@@ -65,16 +65,11 @@ export default function Header({ activePage, onNavigate }: HeaderProps) {
     return () => window.removeEventListener('scroll', fn);
   }, [activePage]); // Thêm activePage để chạy lại khi chuyển trang
 
+  const normalizedActivePage = activePage === 'productDetail' ? 'products' : activePage;
+
   const handleNav = (href: string) => {
     const page = pageMap[href] || 'home';
-    
-    // ĐẨY URL SẠCH LÊN THANH ĐỊA CHỈ (Bỏ hoàn toàn dấu #)
-    window.history.pushState({}, '', href);
-    
-    // Tạo một Event tùy chỉnh để thông báo cho trang AboutPage biết URL vừa thay đổi
-    window.dispatchEvent(new Event('popstate'));
-    
-    onNavigate(page);
+    onNavigate(page, href);
     setIsMobileOpen(false);
     setOpenDropdown(null);
   };
@@ -123,7 +118,7 @@ export default function Header({ activePage, onNavigate }: HeaderProps) {
                 <button
                   onClick={() => handleNav(item.href)}
                   className={`flex items-center gap-1 px-1 py-2 text-sm font-medium transition-all relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-                    activePage === (pageMap[item.href] || 'home')
+                    normalizedActivePage === (pageMap[item.href] || 'home')
                       ? isScrolled ? 'text-espresso-700 after:w-full after:bg-espresso-700' : 'text-white after:w-full after:bg-gold-400'
                       : isScrolled ? 'text-charcoal-700 hover:text-espresso-700 after:bg-espresso-700' : 'text-white after:bg-gold-400'
                   }`}
@@ -180,7 +175,7 @@ export default function Header({ activePage, onNavigate }: HeaderProps) {
                 <button
                   onClick={() => handleNav(item.href)}
                   className={`w-full text-left px-3 py-3 text-sm font-medium border-b border-ivory-100 transition-colors ${
-                    activePage === (pageMap[item.href] || 'home')
+                    normalizedActivePage === (pageMap[item.href] || 'home')
                       ? 'text-espresso-700'
                       : 'text-charcoal-800 hover:text-espresso-700'
                   }`}

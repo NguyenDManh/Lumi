@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ArrowRight, CheckCircle2, Phone, Flame, Volume2, Shield } from 'lucide-react';
 import { mockProducts } from '../data/mockData';
 
-interface ProductsPageProps { onNavigate: (page: string) => void; }
+interface ProductsPageProps { onNavigate: (page: string, path?: string) => void; }
 
 const categories = [
   { id: 'all', label: 'Tất cả sản phẩm' },
@@ -19,7 +19,6 @@ const surfaceOptions = [
 
 export default function ProductsPage({ onNavigate }: ProductsPageProps) {
   const [activeCategory, setActiveCategory] = useState('all');
-  const [selectedProduct, setSelectedProduct] = useState<typeof mockProducts.docs[0] | null>(null);
 
   const filtered = mockProducts.docs.filter(
     (p) => activeCategory === 'all' || p.category === activeCategory
@@ -75,9 +74,10 @@ export default function ProductsPage({ onNavigate }: ProductsPageProps) {
       <section className="container-main mt-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((product) => (
-            <div key={product.id}
-              className="bg-white border border-ivory-200 rounded-sm overflow-hidden card-hover cursor-pointer group"
-              onClick={() => setSelectedProduct(product)}>
+            <button key={product.id}
+              type="button"
+              className="text-left bg-white border border-ivory-200 rounded-sm overflow-hidden card-hover group"
+              onClick={() => onNavigate('productDetail', `/san-pham/${product.slug}`)}>
               <div className="aspect-[4/3] overflow-hidden">
                 <img src={product.image.url} alt={product.image.alt}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -117,7 +117,7 @@ export default function ProductsPage({ onNavigate }: ProductsPageProps) {
                   Xem chi tiết <ArrowRight size={13} />
                 </div>
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </section>
@@ -194,67 +194,6 @@ export default function ProductsPage({ onNavigate }: ProductsPageProps) {
         </div>
       </section>
 
-      {/* Modal */}
-      {selectedProduct && (
-        <div className="fixed inset-0 z-50 bg-charcoal-950/70 flex items-center justify-center p-4"
-          onClick={() => setSelectedProduct(null)}>
-          <div className="bg-white rounded-sm max-w-3xl w-full max-h-[90vh] overflow-y-auto relative"
-            onClick={(e) => e.stopPropagation()}>
-            <div className="grid md:grid-cols-2">
-              <div className="aspect-square md:aspect-auto">
-                <img src={selectedProduct.image.url} alt={selectedProduct.image.alt}
-                  className="w-full h-full object-cover" />
-              </div>
-              <div className="p-7">
-                <div className="flex items-center gap-2 mb-3">
-                  {selectedProduct.fireRating !== 'Không yêu cầu' && (
-                    <span className="text-xs font-bold bg-charcoal-900 text-gold-400 px-2.5 py-1 rounded-full">
-                      {selectedProduct.fireRating}
-                    </span>
-                  )}
-                </div>
-                <h2 className="text-xl font-bold text-charcoal-900 mb-3">{selectedProduct.name}</h2>
-                <p className="text-sm text-charcoal-600 leading-relaxed mb-5">{selectedProduct.shortDescription}</p>
-                <div className="space-y-3 mb-5">
-                  {[['Độ dày', selectedProduct.thickness], ['Cách âm', selectedProduct.soundInsulation], ['Tiêu chuẩn', selectedProduct.standard]].map(([label, value]) => (
-                    <div key={label} className="flex items-center gap-3 text-sm">
-                      <span className="text-charcoal-500 w-28 flex-shrink-0">{label}:</span>
-                      <span className="font-semibold text-charcoal-900">{value}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="mb-5">
-                  <div className="text-sm font-semibold text-charcoal-900 mb-2">Bề mặt hoàn thiện:</div>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedProduct.surfaces.map((s) => (
-                      <span key={s} className="text-xs bg-ivory-100 text-charcoal-700 px-2.5 py-1 rounded">{s}</span>
-                    ))}
-                  </div>
-                </div>
-                <div className="mb-6">
-                  <div className="text-sm font-semibold text-charcoal-900 mb-2">Ứng dụng:</div>
-                  <div className="space-y-1.5">
-                    {selectedProduct.applications.map((app) => (
-                      <div key={app} className="flex items-center gap-2 text-sm text-charcoal-700">
-                        <CheckCircle2 size={13} className="text-gold-600 flex-shrink-0" />
-                        {app}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <button onClick={() => { setSelectedProduct(null); onNavigate('contact'); }}
-                  className="btn-primary w-full justify-center">
-                  Nhận báo giá sản phẩm này <ArrowRight size={16} />
-                </button>
-              </div>
-            </div>
-            <button onClick={() => setSelectedProduct(null)}
-              className="absolute top-3 right-3 w-8 h-8 bg-ivory-100 hover:bg-ivory-200 rounded-full flex items-center justify-center text-charcoal-600 transition-colors text-lg font-bold">
-              ×
-            </button>
-          </div>
-        </div>
-      )}
     </main>
   );
 }
